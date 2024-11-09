@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+      
+
+
+<div class="container">
+<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active banner">
+      <div class="banner">
+            <h3 class="p-3">Аксессуары для iPhone 13 Pro Max</h3>
+            <img src="{% static 'img/13.png' %}" class="img-fluid me-3 me-lg-5">
+      </div>
+    </div>
+    <div class="carousel-item banner">
+      <div class="banner">
+        <h3 class="p-3">Аксессуары для iPhone 13 Pro Max</h3>
+        <img src="{% static 'img/13.png' %}" class="img-fluid me-3 me-lg-5">
+      </div>
+    </div>
+    <div class="carousel-item banner">
+      <div class="banner">
+        <h3 class="p-3">Аксессуары для iPhone 13 Pro Max</h3>
+        <img src="{% static 'img/13.png' %}" class="img-fluid me-3 me-lg-5">
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+    </div>
+
+
+    <div class="container py-5">
+        <div class="row">
+          <h4 class="text-info">Чехлы</h4>
+          
+          {% for case in cases  %}
+            
+            
+            <div class="col-sm-12 col-md-4">
+                <div class="cards bg-white p-3 mt-3">
+                  {% if case.id in request.session.wishlist %}
+                  <a href="{% url 'main:add_wishlist' case.id %}">
+                    <i class="fa-solid fa-heart fs-4 text-info"></i>
+                  </a>
+                {% else %}
+                  <a href="{% url 'main:add_wishlist' case.id %}">
+                    <i class="fa-regular fa-heart fs-4 text-info"></i>
+                  </a>
+                {% endif %}
+                    <center>
+                      <a href="{% url 'main:detail' case.slug %}">
+                    <img src="{{case.image.url}}" class="img-fluid" alt="">
+                      </a>
+                    <h3>Стеклянные</h3>
+                    </center>
+                    <!-- <h4>Стеклянные</h4> -->
+                  </div>
+            </div>
+          {% endfor %}
+    </div>
+    </div>
+
+
+
+    <div class="container py-5">
+      <div class="row">
+        <h4 class="text-info">Чехлы</h4>
+        {% for product in object_list %}
+          <div class="col-sm-12 col-md-6 col-lg-4">
+
+              <div class="cards bg-white p-3 mt-3 mt-lg-5">
+                {% if product.id in request.session.wishlist %}
+                  <a href="{% url 'main:add_wishlist' product.id %}">
+                    <i class="fa-solid fa-heart fs-4 text-info"></i>
+                  </a>
+                {% else %}
+                  <a href="{% url 'main:add_wishlist' product.id %}">
+                    <i class="fa-regular fa-heart fs-4 text-info"></i>
+                  </a>
+                {% endif %}
+                  <center>
+                 <a href="{% url 'main:detail' product.slug %}">
+                  <img src="{{product.image.url}}" class="img-fluid" height="290" style="height: 290px!important;object-fit: contain;" alt="{{product.name}}">
+                 </a>
+                  </center>
+                  <div class="d-flex py-3 gap-2 justify-content-between flex-column">
+                  <h5 class="">{{product.name}}</h5>
+                  <div class="d-flex gap-2 justify-content-between  ">
+                    <h5 class="text-warning m-0">${{product.get_discount_price}}<h5>
+                    <h6 class="text-warning m-0 text-decoration-line-through">
+                      ${{product.price}}
+                    </h6>
+                    <h6>-{{product.discount}}%</h6>
+                    <a href="" class="text-warning text-decoration-none fs-5"> 
+                      <i class="fa-solid fa-star"></i> {{product.rating}} </a>
+                  </div>
+                 
+                </div>
+                 
+                </div>
+
+
+
+          </div>
+          {% endfor %}
+      </div>
+
+    </div>
+    <div class="container py-5">
+      <div class="row">
+        <h4 class="text-info">Наушники  умные часы</h4>
+        {% for product in headphones %}
+          <div class="col-sm-12 col-md-6 col-lg-4">
+
+              <div class="cards bg-white p-3 mt-3 mt-lg-5">
+                {% if product.id in request.session.wishlist %}
+                <a href="{% url 'main:add_wishlist' product.id %}">
+                  <i class="fa-solid fa-heart fs-4 text-info"></i>
+                </a>
+              {% else %}
+                <a href="{% url 'main:add_wishlist' product.id %}">
+                  <i class="fa-regular fa-heart fs-4 text-info"></i>
+                </a>
+              {% endif %}
+                  <center>
+                    <a href="{% url 'main:detail' product.slug %}">
+                  <img src="{{product.image.url}}" class="img-fluid" style="height: 290px!important;object-fit: contain;" alt="{{product.name|truncatewords:10}}">
+                </a>
+                  </center>
+                  <div class="d-flex py-3 gap-2 justify-content-between">
+                  <h5 class="">{{product.name}}</h5>
+                  <div class="">
+                  <h5 class="text-warning m-0">${{product.get_discount_price}}<h5>
+                  <h6 class="text-warning m-0 text-decoration-line-through">${{product.price}}<h6>
+                  </div>
+                  <h6>-{{product.discount}}%</h6>
+                </div>
+                  <a href="" class="text-warning text-decoration-none fs-5"> 
+                    <i class="fa-solid fa-star"></i> {{product.rating}} </a>
+                </div>
+
+
+
+          </div>
+          {% endfor %}
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+{% endblock %}

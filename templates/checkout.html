@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="cards p-4 p-lg-5">
+                <h3>Доставка курьером</h3>
+                <iframe class="w-100 mt-2 rounded-4" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3020.690299507294!2d72.34894179999999!3d40.790822299999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bceb1bbda7dc43%3A0xb9c0dcff9f5782c!2sWESTER%20School%20Chinar-branch!5e0!3m2!1sru!2s!4v1720888424109!5m2!1sru!2s" height="200px"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <p class="mt-3"> <i class="fa-solid fs-4 fa-location-dot px-3"></i>Адрес доставки</p>
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="cart_id" value="{{cart.id}}">
+                <label for="regions">Select a region:</label>
+                <select id="regions" class="form-select" name="city">
+                    <option value="andijan">Andijan Region</option>
+                    <option value="bukhara">Bukhara Region</option>
+                    <option value="fergana">Fergana Region</option>
+                    <option value="jizzakh">Jizzakh Region</option>
+                    <option value="namangan">Namangan Region</option>
+                    <option value="navoiy">Navoiy Region</option>
+                    <option value="qashqadaryo">Qashqadaryo Region</option>
+                    <option value="samarqand">Samarqand Region</option>
+                    <option value="sirdaryo">Sirdaryo Region</option>
+                    <option value="surxondaryo">Surxondaryo Region</option>
+                    <option value="tashkent">Tashkent Region</option>
+                    <option value="xorazm">Xorazm Region</option>
+                    <option value="karakalpakstan">Republic of Karakalpakstan</option>
+                </select>
+                  <input type="text" name="street" placeholder="Улица / Район" class="form-control mt-3">
+                  <input type="text" name="address" placeholder="Address" class="form-control mt-3">
+            </div>  
+            <div class="cards p-3 mt-3">
+              <h3>Номер получателя</h3>
+              <input type="number" name="phone" placeholder="+998 __ ___ __ __" class="form-control">
+          </div>
+          <input type="submit" value="Закончить оформление" class="btn btn btn-outline-dark mt-3 w-100 p-3">
+        </form>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="col-md-12">
+
+
+                <div class="cards p-3 mt-3">
+                    <h3>Ваш заказ</h3>
+                    {% for item in cart.products.all %}
+                    <div class="d-flex justify-content-between">
+                        <h5>{{item.product.name}}</h5>
+                        <h6> {{item.quantity}} / ${{item.price}}</h6>
+                    </div>
+                    <hr>
+                    {% endfor %}
+    
+                    <div class="d-flex justify-content-between">
+                        <h5>Доставка:</h5>
+                        <h6>$0</h6>
+                    </div>
+    
+    
+                    
+                    <div class="d-flex justify-content-between">
+                        <h5>К оплате:</h5>
+                        <h6>${{cart.total_price}}</h6>
+                    </div>
+                    
+                </div>
+         
+            </div>
+
+        </div>
+        </div>
+</div>
+</div>
+
+
+
+
+
+{% endblock content %}

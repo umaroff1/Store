@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content  %}
+
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="cards bg-white p-3 mt-3 mt-lg-5">
+                    {% if object.id in request.session.wishlist %}
+                    <a href="{% url 'main:add_wishlist' object.id %}">
+                      <i class="fa-solid fa-heart fs-4 text-info"></i>
+                    </a>
+                  {% else %}
+                    <a href="{% url 'main:add_wishlist' object.id %}">
+                      <i class="fa-regular fa-heart fs-4 text-info"></i>
+                    </a>
+                  {% endif %}
+                      <center>
+                      <img src="{{object.image.url}}" class="img-fluid" style="height: 500px!important;object-fit: contain;" alt="{{object.name}}">
+                      </center>
+                      <div class="d-flex py-3 gap-2 justify-content-between">
+                        <h3 class="">{{object.name}}</h3>
+                        <div class="d-flex gap-3 py-3">
+                        <h2 class="text-warning m-0">${{object.get_discount_price}}<h2>
+                        <h3 class="text-warning m-0 text-decoration-line-through">${{object.price}}<h3>
+                        <h4>-{{object.discount}}%</h4>
+                        </div>
+                      </div>
+                      <a href="" class="text-warning text-decoration-none fs-5"> <i class="fa-solid fa-star"></i> 4.5 </a>
+                    </div>
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <div class="cards mt-3 bg-body-tertiary">
+
+                    <div class="bg-white cards p-3 ">
+                        <h3>Описание и характеристики</h3>
+                    </div>
+                
+                <div class="card-body p-3">
+                    <p class="card-text">
+                      {{object.description}}
+                   </p>
+                </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-12 col-md-3">
+                <div class="p-3 mt-3 bg-white cards">
+                <a href="{% url 'cart:add_to_cart' object.id  %}" class="btn btn btn-outline-dark w-100 mt-3">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                  Добавить в корзину
+                </a>
+                
+            </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 my-3">
+              <br>
+                <h2>Add a Comment</h2>
+                <br>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" max_length="150" min_length="3" class="form-control" placeholder="User" name="user">
+                    <br>
+                    <textarea class="form-control" placeholder="Add comment" min_length="10" minlength="3"  max_length="255" name="body" id="" cols="30" rows="10"></textarea>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="comment">
+                </form>
+                <br>
+                <h2>Comments</h2>
+                <br>
+                {% for rating in ratings %}
+                <div class="cards p-3 my-3">
+                    <div>
+                        <strong>Comment by {{ rating.name }}
+                        <p>{{ rating.comment }}</p>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    {% endblock content  %}

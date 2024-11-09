@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    
+
+
+<div class="container-fluid p-3 p-lg-5">
+    <div class="row">
+        {% for i in objects %}
+        <div class="col-sm-12 col-md-4">
+        <div class="cards mb-3" >
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{i.image.url}}" class="img-fluid rounded p-3" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title p-3">{{i.name}}</h5>
+                  <p class="card-text">{{i.description|truncatewords:20}}</p>
+                  <p class="card-text"><small class="text-muted">{{i.price}}</small></p>
+                </div>
+              </div>
+            </div>
+
+    </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+
+{% endblock %}
